@@ -3,7 +3,7 @@ import React from "react";
 export default function Product(props) {
   return (
     <>
-      <div className="row">
+      <div className="row mt-4">
         <div className="col-5">
           <h2>
             {props.product.name} ₹
@@ -35,7 +35,13 @@ export default function Product(props) {
             </button>
           </div>
         </div>
-        <div className="col-4">{props.product.qty * props.product.price}</div>
+        <div className="col-2">{props.product.qty * props.product.price}</div>
+        <button
+          className="col-2 btn btn-danger"
+          onClick={() => props.removeProduct(props.index)}
+        >
+          delete
+        </button>
       </div>
     </>
   );
