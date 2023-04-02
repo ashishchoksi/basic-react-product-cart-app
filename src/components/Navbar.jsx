@@ -2,7 +2,14 @@ import React from "react";
 
 // Class based component
 class Navbar extends React.Component {
+  // initialize props
+  // use props with this.props
+  constructor(props) {
+    super(props);
+  }
+
   render() {
+    console.log(this.props.totalItems);
     return (
       <>
         <nav
@@ -10,7 +17,12 @@ class Navbar extends React.Component {
           data-bs-theme="dark"
         >
           <div className="container-fluid">
-            <div className="navbar-brand">Cartify</div>
+            <div className="navbar-brand">
+              Cartify{" "}
+              <span className="badge bg-secondary">
+                {this.props.totalItems}
+              </span>
+            </div>
           </div>
         </nav>
       </>

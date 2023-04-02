@@ -1,8 +1,8 @@
-import logo from "./logo.svg";
 import "./App.css";
 import Navbar from "./components/Navbar"; // .jsx is optioal
 import ProductList from "./components/ProductList";
 import Footer from "./components/Footer";
+import AddItem from "./components/AddItem";
 import { useState } from "react"; // this will set the state
 import { getData } from "./data/ProductData";
 
@@ -15,6 +15,7 @@ function App() {
    */
   let [productList, setProductList] = useState(getData);
   let [totalAmount, setTotalAmount] = useState(0);
+  let [totalItems, setTotalItems] = useState(2); // 2 -> beause we have 2 item statically added
 
   const incrementQty = (index) => {
     const newProductList = [...productList];
@@ -41,7 +42,7 @@ function App() {
     setTotalAmount(newTotalAmount);
   };
 
-  // This set ll qty to 0 and toalAmount = 0
+  // This set qty to 0 and toalAmount = 0
   const reset = () => {
     const newProductList = [...productList];
     newProductList.map((product) => {
@@ -58,12 +59,31 @@ function App() {
     newProductList.splice(index, 1); // remove index from list
     setProductList(newProductList);
     setTotalAmount(newTotalAmount);
+
+    let newTotalItems = totalItems;
+    newTotalItems--;
+    setTotalItems(newTotalItems);
+  };
+
+  const addProduct = (productName, productPrice) => {
+    const newProductList = [...productList];
+    newProductList.push({
+      name: productName,
+      price: parseInt(productPrice),
+      qty: 0,
+    });
+    setProductList(newProductList);
+
+    let newTotalItems = totalItems;
+    newTotalItems++;
+    setTotalItems(newTotalItems);
   };
 
   return (
     <>
-      <Navbar />
+      <Navbar totalItems={totalItems} />
       <main className="container g-0 mt-5">
+        <AddItem addProduct={addProduct} />
         <ProductList
           productList={productList}
           incrementQty={incrementQty}
